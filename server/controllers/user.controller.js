@@ -46,5 +46,16 @@ module.exports = {
     logout: (req, res) => {
         res.clearCookie("userToken")
         res.json({message: "logged out successfully"})
+    },
+
+    tokenIsValid: (req, res) => {
+        jwt.verify(req.cookies.userToken, SECRET_KEY, (err, payload) => {
+            if(err){
+                res.status(401).json({verified: false});
+            }
+            else{
+                res.json({verified: true});
+            }
+        })
     }
 }

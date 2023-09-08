@@ -22,7 +22,7 @@ module.exports = {
     updateGame: (req, res) => {
         Game.findByIdAndUpdate(req.params.id, req.body, {new: true})
             .then(updatedGame => res.json(updatedGame))
-            .catch(err => res.json(err));
+            .catch(err => res.status(400).json(err));
     },
 
     deleteGame: (req, res) => {
