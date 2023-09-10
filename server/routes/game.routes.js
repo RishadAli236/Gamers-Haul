@@ -1,6 +1,5 @@
-const { authenticate } = require("../config/jwt.config");
 const GameController = require("../controllers/game.controller");
-require("../config/jwt.config");
+const { authenticate } = require("../config/jwt.config");
 
 module.exports = (app) => {
     app.post("/api/games", authenticate, GameController.addGame);

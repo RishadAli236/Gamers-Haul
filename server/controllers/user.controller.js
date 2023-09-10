@@ -27,7 +27,7 @@ module.exports = {
                 const passwordsMatch = await bcrypt.compare(req.body.password, user.password)
                 if (passwordsMatch){
                     const userToken = jwt.sign({id: user._id}, SECRET_KEY, {expiresIn: "2h"})
-                    res.status(201).cookie("userToken", userToken, {httpOnly: true, maxAge: 3600000}).json(user)
+                    res.status(200).cookie("userToken", userToken, {httpOnly: true, maxAge: 3600000}).json(user)
                 }
                 else{
                     res.status(400).json({message: "Invalid email/password"})
@@ -38,7 +38,6 @@ module.exports = {
             }
         }
         catch(err){
-            console.log(err)
             res.status(400).json(err);
         }
     },
@@ -57,5 +56,17 @@ module.exports = {
                 res.json({verified: true});
             }
         })
-    }
+    },
+
+    getUser: (req, res) => {
+        User.findById(req.body.user).populate("favorites")
+            .then(user => res.json(user))
+            .catch(err => res.status(400).json(err));
+    },
+
+    // addToLibrary: (req, res) => {
+    //     User.findByIdAndUpdate(req.body.user, {$push: {favorites: req.params.id}})
+    //         .then(user => res.json({message: "success"}))
+    //         .catch(err => res.status(400).json(err))
+    // }
 }

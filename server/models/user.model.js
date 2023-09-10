@@ -6,12 +6,22 @@ const { isEmail } = require("validator")
 
 const UserSchema = new mongoose.Schema(
     {
-        username: String,
+        username: {
+            type: String,
+            required: [true, "username is required"],
+            minLength: [3, "username should be at least 3 characters"]
+        },
         email: {
             type: String,
+            required: [true, "email is required"],
             validate: [isEmail, "Please enter valid email"]
         },
-        password: String
+        password: {
+            type: String,
+            required: [true, "password is required"],
+            minLength: [8, "password should be at least 8 characters"]
+        },
+        favorites: [{type: mongoose.ObjectId, ref: "Game"}]
     }, {timestamps: true}
 )
 

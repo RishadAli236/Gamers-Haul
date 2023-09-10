@@ -7,6 +7,7 @@ module.exports.authenticate = (req, res, next) => {
             res.status(401).json({verified: false});
         }
         else{
+            req.body.user = payload.id
             next();
         }
     })
