@@ -1,0 +1,110 @@
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import recommendationsImage from '../img/recommendations.jpg'
+import { useNavigate } from 'react-router-dom';
+
+const Recommendations = (props) => {
+
+    const [genres, setGenres] = useState([]);
+    const [platforms, setPlatforms] = useState([]);
+    const [preferences, setPreferences] = useState({genre: "", platform: ""});
+    const [recommendations, setRecommendations] = useState([]);
+
+    const navigate = useNavigate();
+
+    const apiKey = import.meta.env.VITE_API_KEY;
+
+    useEffect(() => {
+        axios.post("http://localhost:8000/api/tokenIsValid", {}, {withCredentials: true})
+            .then( res => console.log("User is verified"))
+            .catch( err => {
+                console.log("User not verified");
+                navigate("/");
+        })
+
+        axios.get(`https://api.rawg.io/api/platforms?key=${apiKey}`)
+            .then(res => {
+                console.log("platform list",res);
+                setPlatforms(res.data.results)
+            })
+            .catch(err => console.log(err));
+
+        axios.get(`https://api.rawg.io/api/genres?key=${apiKey}`)
+            .then(res => {
+                console.log("genre list",res);
+                setGenres(res.data.results)
+            })
+            .catch(err => console.log(err));
+
+        axios.get(`https://api.rawg.io/api/games?key=${apiKey}&ordering=-rating&page_size=10`)
+            .then(res => {
+                console.log("recommendations",res);
+                setRecommendations(res.data.results)
+            })
+            .catch(err => console.log(err));
+
+    }, [])
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        axios.get(`https://api.rawg.io/api/games?key=${apiKey}&platforms=${preferences.platform}&genres=${preferences.genre}&ordering=-rating&page_size=10`)
+            .then(res => {
+                console.log("recommendations",res);
+                setRecommendations(res.data.results)
+            })
+            .catch(err => console.log(err));
+    }
+    return(
+        <div style={{backgroundImage: `url(${recommendationsImage})`, backgroundSize: "cover"}}>
+            <div className='container'>
+                <h3 className='text-warning pt-4'>Recommendations</h3>
+                <form className='w-750 h-50 pt-3 row' onSubmit={handleSubmit}>
+                {/* <label htmlFor="genre">Genre</label> */}
+                    <div className='mb-3 col'>
+                        <select className='form-select' name="genre" value={preferences.genre} onChange={(e) => setPreferences({...preferences, genre: e.target.value})}>
+                            <option className='bg-secondary text-light' value="">Choose a genre</option>
+                            {
+                                genres.map((genre, index) => (
+                                    <option className='bg-secondary text-light' key={index} value={genre.id}>{genre.name}</option>
+                                ))
+                            }
+                        </select>
+                    </div>
+
+                    <div className="mb-3 col">
+                        {/* <label htmlFor="platfrom">Platform</label> */}
+                        <select className='form-select' name="platform" value={preferences.platform} onChange={(e) => setPreferences({...preferences, platform: e.target.value})}>
+                            <option className='bg-secondary text-light' value="">Choose a platform</option>
+                            {
+                                platforms.map((platform, index) => (
+                                    <option className='bg-secondary text-light' key={index} value={platform.id}>{platform.name}</option>
+                                ))
+                            }
+                        </select>
+                    </div>
+
+                    <div className='col'>
+                        <input className='form-control-sm bg-primary text-light' type="submit" value="Filter" />
+                    </div>
+                </form>
+                <div className='d-flex justify-content-evenly flex-wrap'>
+                    {
+                        recommendations.map((recommendation, index) => (
+                            <div key={index} className="card mb-3" style={{width: "15rem"}}>
+                                <img src={recommendation.background_image} className="card-img-top" height={150} alt="..."/>
+                                <div className="card-body bg-dark-subtle" >
+                                    <p style={{textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden'}} className="card-text">Title: {recommendation.name}</p>
+                                    <p className="card-text">Genre: {recommendation.genres[0]?.name}</p>
+                                    <p style={{textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden'}} className="card-text">Platform: {recommendation.platforms[0].platform.name}</p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+    )
+};
+
+export default Recommendations;
