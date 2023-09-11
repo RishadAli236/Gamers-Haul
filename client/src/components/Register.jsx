@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import registerImage from '../img/register.png'
 
 
 const Register = (props) => {
-    const [newUser, setNewUser] = useState({username: "", email: "", password: "", confirmPassword: ""})
+    const [newUser, setNewUser] = useState({ username: "", email: "", password: "", confirmPassword: "" })
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ const Register = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:8000/api/register", newUser, {withCredentials: true})
+        axios.post("http://localhost:8000/api/register", newUser, { withCredentials: true })
             .then(res => {
                 console.log(res.data);
                 window.localStorage.setItem("userId", res.data._id);
@@ -25,49 +25,45 @@ const Register = (props) => {
             })
     }
 
-    return(
+    return (
         <div>
-            <div style={{backgroundImage: `url(${registerImage})`, backgroundSize: "cover", height: "100vh"}}>
+            <div style={{ backgroundImage: `url(${registerImage})`, backgroundSize: "cover", height: "100vh" }}>
                 <div className="container pt-5">
                     <h3 className='text-warning'>Register and explore Gamers Haul</h3>
                     <div className='mt-5 pb-5'>
                         <form onSubmit={handleSubmit} className='w-50 h-50  mt-5 pt-5'>
                             <div className='mb-3'>
-                                {/* <label htmlFor="username">Username</label> */}
-                                <input className='form-control' type="text" name="username" value={newUser.username} placeholder="Username" onChange={(e) => setNewUser({...newUser, username: e.target.value})} />
+                                <input className='form-control' type="text" name="username" value={newUser.username} placeholder="Username" onChange={(e) => setNewUser({ ...newUser, username: e.target.value })} />
                                 {
-                                    errors.username?
-                                        <p className='form-text text-warning'>{errors.username.message}</p>:
+                                    errors.username ?
+                                        <p className='form-text text-warning'>{errors.username.message}</p> :
                                         ""
                                 }
                             </div>
 
                             <div className='mb-3'>
-                                {/* <label htmlFor="email">Email</label> */}
-                                <input className='form-control' type="text" name="email" value={newUser.email} placeholder='Email' onChange={(e) => setNewUser({...newUser, email: e.target.value})}/>
+                                <input className='form-control' type="text" name="email" value={newUser.email} placeholder='Email' onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} />
                                 {
-                                    errors.email?
-                                        <p className='form-text text-warning'>{errors.email.message}</p>:
+                                    errors.email ?
+                                        <p className='form-text text-warning'>{errors.email.message}</p> :
                                         ""
                                 }
                             </div>
 
                             <div className="mb-3">
-                                {/* <label htmlFor="password">Password</label> */}
-                                <input className='form-control' type="password" name="password" value={newUser.password} placeholder='Password' onChange={(e) => setNewUser({...newUser, password: e.target.value})}/>
+                                <input className='form-control' type="password" name="password" value={newUser.password} placeholder='Password' onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} />
                                 {
-                                    errors.password?
-                                        <p className='form-text text-warning'>{errors.password.message}</p>:
+                                    errors.password ?
+                                        <p className='form-text text-warning'>{errors.password.message}</p> :
                                         ""
                                 }
                             </div>
 
                             <div className="mb-3">
-                                {/* <label htmlFor="confirmPassword">ConfirmPassword</label> */}
-                                <input className='form-control' type="password" name="confirmPassword" value={newUser.confirmPassword} placeholder='Confirm Password' onChange={(e) => setNewUser({...newUser, confirmPassword: e.target.value})}/>
+                                <input className='form-control' type="password" name="confirmPassword" value={newUser.confirmPassword} placeholder='Confirm Password' onChange={(e) => setNewUser({ ...newUser, confirmPassword: e.target.value })} />
                                 {
-                                    errors.confirmPassword?
-                                        <p className='form-text text-warning'>{errors.confirmPassword.message}</p>:
+                                    errors.confirmPassword ?
+                                        <p className='form-text text-warning'>{errors.confirmPassword.message}</p> :
                                         ""
                                 }
                             </div>

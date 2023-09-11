@@ -64,9 +64,4 @@ module.exports = {
             .catch(err => res.status(400).json(err));
     },
 
-    // addToLibrary: (req, res) => {
-    //     User.findByIdAndUpdate(req.body.user, {$push: {favorites: req.params.id}})
-    //         .then(user => res.json({message: "success"}))
-    //         .catch(err => res.status(400).json(err))
-    // }
 }

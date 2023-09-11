@@ -7,5 +7,4 @@ module.exports = (app) => {
     app.post("/api/logout", UserController.logout)
     app.post("/api/tokenIsValid", UserController.tokenIsValid)
     app.get("/api/user", authenticate, UserController.getUser)
-    // app.put("/api/user/:id", authenticate, UserController.addToLibrary)
 }
