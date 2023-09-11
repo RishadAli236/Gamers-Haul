@@ -1,21 +1,34 @@
 import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import addImage from '../img/add.jpg'
 
 
-const AddGame = (props) => {
+const EditGame = (props) => {
+    const { id } = useParams();
+
+    /*Important note: when make a get one request, a full document is returne i.e contains all fields including
+    _id, created_at and updated_at so if you are using the same document in state for editing remember not to 
+    send it back to the server as it is because it will contain the _id and this will cause problems when you are trying to do unique validation */
+
     const [game, setGame] = useState({ title: "", genre: "", platform: "", description: "", image: "" });
     const [genres, setGenres] = useState([]);
     const [platforms, setPlatforms] = useState([]);
     const [errors, setErrors] = useState({});
 
-    //retrieve API key from .env
     const apiKey = import.meta.env.VITE_API_KEY;
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        axios.get(`http://localhost:8000/api/games/${id}`, { withCredentials: true })
+            .then(res => {
+                setGame(res.data);
+            })
+            .catch(err => {
+                console.log(err)
+                if (err.response.status === 401) navigate("/")
+            })
+
         //authenticate user on rendering this route
         axios.post("http://localhost:8000/api/tokenIsValid", {}, { withCredentials: true })
             .then(res => console.log("User is verified"))
@@ -44,8 +57,12 @@ const AddGame = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post("http://localhost:8000/api/games", game, { withCredentials: true })
-            .then(res => navigate("/dashboard"))
+        //Double check the contents of the payload and make sure only what is needed is passed
+        axios.put(`http://localhost:8000/api/games/${id}`, { title: game.title, genre: game.genre, platform: game.platform, description: game.description, image: game.image }, { withCredentials: true })
+            .then(res => {
+                console.log(res.data);
+                navigate("/dashboard")
+            })
             .catch(err => {
                 console.log(err);
                 setErrors(err.response.data.errors);
@@ -53,9 +70,10 @@ const AddGame = (props) => {
     }
 
     return (
-        <div style={{ backgroundImage: `url(${addImage})`, backgroundSize: "cover", height: "100vh" }}>
-            <div className="container">
-                <h3 className='p-4 text-warning'>Let's add to the trove</h3>
+        <div className="position-relative">
+            <div style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", filter: "blur(5px) brightness(60%)", height: "92vh" }}></div>
+            <div className='container position-absolute top-50 start-50 translate-middle'>
+                <h3 className='p-4 text-warning'>Level up your game info!</h3>
                 <div>
                     <form className='w-50 h-50 pt-3' onSubmit={handleSubmit}>
                         <div className='mb-3'>
@@ -117,8 +135,13 @@ const AddGame = (props) => {
                             }
                         </div>
 
-                        <div>
-                            <input className='form-control-sm bg-primary text-light' type="submit" value="Add Game" />
+                        <div className='row'>
+                            <div className='col'>
+                                <input className='form-control-sm btn bg-primary text-light' type="submit" value="Update" />
+                            </div>
+                            <div className='col'>
+                                <Link to={"/dashboard"} className='btn btn-secondary text-warning'>Cancel</Link>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -127,4 +150,4 @@ const AddGame = (props) => {
     )
 };
 
-export default AddGame;
+export default EditGame;
