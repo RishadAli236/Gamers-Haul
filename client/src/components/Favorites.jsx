@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import libraryImage from '../img/library.jpg'
 
-
 const Favorites = (props) => {
     const [favorites, setFavorites] = useState([]);
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        //authenticate user on rendering this route
         axios.post("http://localhost:8000/api/tokenIsValid", {}, { withCredentials: true })
             .then(res => console.log("User is verified"))
             .catch(err => {

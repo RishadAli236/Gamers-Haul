@@ -29,6 +29,7 @@ const EditGame = (props) => {
                 if (err.response.status === 401) navigate("/")
             })
 
+        //authenticate user on rendering this route
         axios.post("http://localhost:8000/api/tokenIsValid", {}, { withCredentials: true })
             .then(res => console.log("User is verified"))
             .catch(err => {
@@ -36,6 +37,7 @@ const EditGame = (props) => {
                 navigate("/");
             })
 
+        //make request to external API for list of video game platforms
         axios.get(`https://api.rawg.io/api/platforms?key=${apiKey}`)
             .then(res => {
                 console.log(res);
@@ -43,6 +45,7 @@ const EditGame = (props) => {
             })
             .catch(err => console.log(err));
 
+        //make request to external API for list of video game genres
         axios.get(`https://api.rawg.io/api/genres?key=${apiKey}`)
             .then(res => {
                 console.log(res);
@@ -54,6 +57,7 @@ const EditGame = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        //Double check the contents of the payload and make sure only what is needed is passed
         axios.put(`http://localhost:8000/api/games/${id}`, { title: game.title, genre: game.genre, platform: game.platform, description: game.description, image: game.image }, { withCredentials: true })
             .then(res => {
                 console.log(res.data);

@@ -15,6 +15,7 @@ const Recommendations = (props) => {
     const apiKey = import.meta.env.VITE_API_KEY;
 
     useEffect(() => {
+        //authenticate user on rendering this route
         axios.post("http://localhost:8000/api/tokenIsValid", {}, { withCredentials: true })
             .then(res => console.log("User is verified"))
             .catch(err => {
@@ -22,6 +23,7 @@ const Recommendations = (props) => {
                 navigate("/");
             })
 
+        //make request to external API for list of video game platforms
         axios.get(`https://api.rawg.io/api/platforms?key=${apiKey}`)
             .then(res => {
                 console.log("platform list", res);
@@ -29,6 +31,7 @@ const Recommendations = (props) => {
             })
             .catch(err => console.log(err));
 
+        //make request to external API for list of video game genres
         axios.get(`https://api.rawg.io/api/genres?key=${apiKey}`)
             .then(res => {
                 console.log("genre list", res);
@@ -36,6 +39,7 @@ const Recommendations = (props) => {
             })
             .catch(err => console.log(err));
 
+        //make request to external API for list of games sorted by rating
         axios.get(`https://api.rawg.io/api/games?key=${apiKey}&ordering=-rating&page_size=10`)
             .then(res => {
                 console.log("recommendations", res);
@@ -48,6 +52,7 @@ const Recommendations = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        //make request to external API for list of video games with the platform and genre as query parameters
         axios.get(`https://api.rawg.io/api/games?key=${apiKey}&platforms=${preferences.platform}&genres=${preferences.genre}&ordering=-rating&page_size=10`)
             .then(res => {
                 console.log("recommendations", res);

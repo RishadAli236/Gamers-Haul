@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// Install and import uniqueValidator for unique validations
 const uniqueValidator = require("mongoose-unique-validator");
 
 const GameSchema = new mongoose.Schema(
@@ -35,6 +36,7 @@ const GameSchema = new mongoose.Schema(
     {timestamps: true}
 );
 
+//Use plugin to generate custom error message when duplicate title is detected
 GameSchema.plugin(uniqueValidator, {message: "A game with the title {VALUE} has already been added"})
 
 const Game = mongoose.model("Game", GameSchema);

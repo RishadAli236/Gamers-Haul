@@ -5,6 +5,7 @@ module.exports = {
     addGame: (req, res) => {
         Game.create(req.body)
             .then(newGame => {
+                //After adding game to database, add it to the uploader's favorites as well
                 User.findByIdAndUpdate(newGame.user, {$push: {favorites: newGame._id}})
                     .then(res => console.log("Added new game to favorites"))
                     .catch(err => res.status(400).json(err))
@@ -39,6 +40,7 @@ module.exports = {
     deleteGame: (req, res) => {
         Game.deleteOne({_id: req.params.id})
             .then(deleteConfrim => res.json(deleteConfrim))
+            //After deleting game from database, remove it from the user's favorites
             User.findByIdAndUpdate(req.body.user, {$pull: {favorites: req.params.id}})
                 .then(res => console.log("removed game from favorites"))
                 .catch(err => res.status(400).json(err))

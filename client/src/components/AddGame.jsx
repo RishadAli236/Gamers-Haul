@@ -10,11 +10,13 @@ const AddGame = (props) => {
     const [platforms, setPlatforms] = useState([]);
     const [errors, setErrors] = useState({});
 
+    //retrieve API key from .env
     const apiKey = import.meta.env.VITE_API_KEY;
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        //authenticate user on rendering this route
         axios.post("http://localhost:8000/api/tokenIsValid", {}, { withCredentials: true })
             .then(res => console.log("User is verified"))
             .catch(err => {
@@ -22,12 +24,15 @@ const AddGame = (props) => {
                 navigate("/");
             })
 
+        //make request to external API for list of video game platforms
         axios.get(`https://api.rawg.io/api/platforms?key=${apiKey}`)
             .then(res => {
                 console.log(res);
                 setPlatforms(res.data.results)
             })
             .catch(err => console.log(err));
+
+        //make request to external API for list of video game genres
         axios.get(`https://api.rawg.io/api/genres?key=${apiKey}`)
             .then(res => {
                 console.log(res);
