@@ -61,7 +61,7 @@ const Recommendations = (props) => {
             .catch(err => console.log(err));
     }
     return (
-        <div style={{ backgroundImage: `url(${recommendationsImage})`, backgroundSize: "cover", height: "100vh" }}>
+        <div style={{ backgroundImage: `url(${recommendationsImage})`, backgroundSize: "cover"}}>
             <div className='container'>
                 <h3 className='text-warning pt-4'>Recommendations</h3>
                 <form className='w-750 h-50 pt-3 row' onSubmit={handleSubmit}>
