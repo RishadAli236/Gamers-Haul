@@ -5,9 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 
 const Recommendations = (props) => {
+    const {platforms, genres} = props;
 
-    const [genres, setGenres] = useState([]);
-    const [platforms, setPlatforms] = useState([]);
     const [preferences, setPreferences] = useState({ genre: "", platform: "" });
     const [recommendations, setRecommendations] = useState([]);
 
@@ -23,22 +22,6 @@ const Recommendations = (props) => {
                 console.log("User not verified");
                 navigate("/");
             })
-
-        //make request to external API for list of video game platforms
-        axios.get(`https://api.rawg.io/api/platforms?key=${apiKey}`)
-            .then(res => {
-                console.log("platform list", res);
-                setPlatforms(res.data.results)
-            })
-            .catch(err => console.log(err));
-
-        //make request to external API for list of video game genres
-        axios.get(`https://api.rawg.io/api/genres?key=${apiKey}`)
-            .then(res => {
-                console.log("genre list", res);
-                setGenres(res.data.results)
-            })
-            .catch(err => console.log(err));
 
         //make request to external API for list of games sorted by rating
         axios.get(`https://api.rawg.io/api/games?key=${apiKey}&ordering=-rating&page_size=10`)
