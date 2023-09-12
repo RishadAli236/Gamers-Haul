@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserContext';
 import dashboardImage from '../img/dashboard.jpg'
+import NavBar from './NavBar';
 
 
 const Dashboard = (props) => {
@@ -34,7 +35,9 @@ const Dashboard = (props) => {
     }, [])
 
     return (
-        <div style={{ backgroundImage: `url(${dashboardImage})`, backgroundSize: "cover" }}>
+        <>
+            <div style={{ backgroundImage: `url(${dashboardImage})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw", zIndex: "-1", position: "fixed"}}></div>
+            <NavBar/>
             <div className="container mx-auto pt-4">
                 <h2 className='text-light mb-5 p-3'>Welcome back, {loggedInUser?.username}</h2>
                 <div className='d-flex justify-content-evenly flex-wrap'>
@@ -55,7 +58,7 @@ const Dashboard = (props) => {
                     }
                 </div>
             </div>
-        </div>
+        </>
     )
 };
 

@@ -19,14 +19,12 @@ function App() {
       <Routes>
         <Route index element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route element={<NavBar />}>
-          <Route path="/dashboard" element={<Dashboard gameList={gameList} setGameList={setGameList} />} />
-          <Route path="/games/new" element={<AddGame />} />
-          <Route path="/games/:id" element={<ViewGame />} />
-          <Route path="/games/edit/:id" element={<EditGame />} />
-          <Route path="/games/library" element={<Favorites />} />
-          <Route path="/games/recommendations" element={<Recommendations />} />
-        </Route>
+        <Route path="/dashboard" element={<Dashboard gameList={gameList} setGameList={setGameList} />} />
+        <Route path="/games/new" element={<AddGame />} />
+        <Route path="/games/:id" element={<ViewGame />} />
+        <Route path="/games/edit/:id" element={<EditGame />} />
+        <Route path="/games/library" element={<Favorites />} />
+        <Route path="/games/recommendations" element={<Recommendations />} />
       </Routes>
     </>
   )

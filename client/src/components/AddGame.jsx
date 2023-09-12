@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import addImage from '../img/add.jpg'
+import NavBar from './NavBar';
 
 
 const AddGame = (props) => {
@@ -53,7 +54,9 @@ const AddGame = (props) => {
     }
 
     return (
-        <div style={{ backgroundImage: `url(${addImage})`, backgroundSize: "cover", height: "100vh" }}>
+        <>
+            <NavBar/>
+            <div style={{ backgroundImage: `url(${addImage})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw", zIndex: "-1", position: "fixed"}}></div>
             <div className="container">
                 <h3 className='p-4 text-warning'>Let's add to the trove</h3>
                 <div>
@@ -123,7 +126,8 @@ const AddGame = (props) => {
                     </form>
                 </div>
             </div>
-        </div>
+        </>
+
     )
 };
 

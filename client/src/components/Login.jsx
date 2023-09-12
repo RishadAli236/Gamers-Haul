@@ -26,11 +26,12 @@ const Login = (props) => {
     }
 
     return (
-        <div style={{ backgroundImage: `url(${loginImage})`, backgroundSize: "cover", height: "100vh" }}>
+        <>
+            <div style={{ backgroundImage: `url(${loginImage})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw", zIndex: "-1", position: "fixed"}}></div>
             <div className='container py-5'>
                 <h3 className='text-warning'>Welcome Back to Gamers Haul</h3>
                 <h4 className='text-warning'>Login and dive back in!</h4>
-                <div className='mt-5 pt-4'>
+                <div className='mt-3 pt-3'>
                     <form onSubmit={handleSubmit} className='w-50 h-50  mt-5 pt-5' >
                         <div className='mb-3'>
                             <input className='form-control' type="text" name="email" value={userLogin.email} placeholder="Email" onChange={(e) => setUserLogin({ ...userLogin, email: e.target.value })} />
@@ -52,7 +53,7 @@ const Login = (props) => {
                     </form>
                 </div>
             </div>
-        </div>
+        </>
     )
 };
 

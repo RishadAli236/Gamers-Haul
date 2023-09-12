@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import recommendationsImage from '../img/recommendations.jpg'
 import { useNavigate } from 'react-router-dom';
+import NavBar from './NavBar';
 
 const Recommendations = (props) => {
 
@@ -61,7 +62,9 @@ const Recommendations = (props) => {
             .catch(err => console.log(err));
     }
     return (
-        <div style={{ backgroundImage: `url(${recommendationsImage})`, backgroundSize: "cover"}}>
+        <>
+            <NavBar/>
+            <div style={{ backgroundImage: `url(${recommendationsImage})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw", zIndex: "-1", position: "fixed"}}></div>
             <div className='container'>
                 <h3 className='text-warning pt-4'>Recommendations</h3>
                 <form className='w-750 h-50 pt-3 row' onSubmit={handleSubmit}>
@@ -106,7 +109,7 @@ const Recommendations = (props) => {
                     }
                 </div>
             </div>
-        </div>
+        </>
     )
 };
 
