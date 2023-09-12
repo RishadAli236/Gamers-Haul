@@ -48,7 +48,7 @@ const Login = (props) => {
                             <input className='form-control-sm text-bg-primary' type="submit" value="Login" />
                         </div>
                         <div>
-                            <Link className='text-light' to={"/register"}>Don't have an account</Link>
+                            <Link className='text-light' to={"/register"}>Don't have an account? Register Here</Link>
                         </div>
                     </form>
                 </div>
