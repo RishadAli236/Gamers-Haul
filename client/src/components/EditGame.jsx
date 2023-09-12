@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import NavBar from './NavBar';
 
 
 const EditGame = (props) => {
@@ -70,8 +71,9 @@ const EditGame = (props) => {
     }
 
     return (
-        <div className="position-relative">
-            <div style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", filter: "blur(5px) brightness(60%)", height: "92vh" }}></div>
+        <>
+            <div style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw", zIndex: "-1", position: "fixed", filter: "blur(5px) brightness(60%)"}}></div>
+            <NavBar/>
             <div className='container position-absolute top-50 start-50 translate-middle'>
                 <h3 className='p-4 text-warning'>Level up your game info!</h3>
                 <div>
@@ -146,7 +148,7 @@ const EditGame = (props) => {
                     </form>
                 </div>
             </div>
-        </div>
+        </>
     )
 };
 
