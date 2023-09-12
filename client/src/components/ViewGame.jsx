@@ -62,7 +62,7 @@ const ViewGame = (props) => {
                         </div>
                     </div>
                 </div>
-        </div>
+            </div>
         </>
     )
 };
