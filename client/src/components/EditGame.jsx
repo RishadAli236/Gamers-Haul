@@ -74,10 +74,10 @@ const EditGame = (props) => {
         <>
             <div style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw", zIndex: "-1", position: "fixed", filter: "blur(5px) brightness(60%)"}}></div>
             <NavBar/>
-            <div className='container position-absolute top-50 start-50 translate-middle'>
+            <div className='container h-75 d-flex flex-column justify-content-center'>
                 <h3 className='p-4 text-warning'>Level up your game info!</h3>
-                <div>
-                    <form className='w-50 h-50 pt-3' onSubmit={handleSubmit}>
+                <div className='w-50'>
+                    <form className='w-100 h-50 pt-3' onSubmit={handleSubmit}>
                         <div className='mb-3'>
                             <input className='form-control' type="text" name="title" value={game.title} placeholder='Title' onChange={(e) => setGame({ ...game, title: e.target.value })} />
                             {
