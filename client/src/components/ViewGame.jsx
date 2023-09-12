@@ -36,7 +36,7 @@ const ViewGame = (props) => {
         <>
             <div style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw", zIndex: "-1", position: "fixed", filter: "blur(5px) brightness(60%)"}}></div>
             <NavBar/>
-            <div className='d-flex align-items-center'>
+            <div className='d-flex h-100 align-items-center'>
                 <div className='container d-flex align-items-sm-center justify-content-center'>
                     <div className="card my-3 w-75" >
                         <div className="row g-0 h-100">
