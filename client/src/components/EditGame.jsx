@@ -5,6 +5,8 @@ import NavBar from './NavBar';
 
 
 const EditGame = (props) => {
+    const {platforms, genres} = props;
+
     const { id } = useParams();
 
     /*Important note: when make a get one request, a full document is returne i.e contains all fields including
@@ -12,8 +14,7 @@ const EditGame = (props) => {
     send it back to the server as it is because it will contain the _id and this will cause problems when you are trying to do unique validation */
 
     const [game, setGame] = useState({ title: "", genre: "", platform: "", description: "", image: "" });
-    const [genres, setGenres] = useState([]);
-    const [platforms, setPlatforms] = useState([]);
+
     const [errors, setErrors] = useState({});
 
     const apiKey = import.meta.env.VITE_API_KEY;
@@ -37,22 +38,6 @@ const EditGame = (props) => {
                 console.log("User not verified");
                 navigate("/");
             })
-
-        //make request to external API for list of video game platforms
-        axios.get(`https://api.rawg.io/api/platforms?key=${apiKey}`)
-            .then(res => {
-                console.log(res);
-                setPlatforms(res.data.results)
-            })
-            .catch(err => console.log(err));
-
-        //make request to external API for list of video game genres
-        axios.get(`https://api.rawg.io/api/genres?key=${apiKey}`)
-            .then(res => {
-                console.log(res);
-                setGenres(res.data.results)
-            })
-            .catch(err => console.log(err));
     }, [])
 
     const handleSubmit = (e) => {

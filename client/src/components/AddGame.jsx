@@ -6,9 +6,9 @@ import NavBar from './NavBar';
 
 
 const AddGame = (props) => {
+    const {platforms, genres} = props;
+
     const [game, setGame] = useState({ title: "", genre: "", platform: "", description: "", image: "" });
-    const [genres, setGenres] = useState([]);
-    const [platforms, setPlatforms] = useState([]);
     const [errors, setErrors] = useState({});
 
     //retrieve API key from .env
@@ -24,22 +24,6 @@ const AddGame = (props) => {
                 console.log("User not verified");
                 navigate("/");
             })
-
-        //make request to external API for list of video game platforms
-        axios.get(`https://api.rawg.io/api/platforms?key=${apiKey}`)
-            .then(res => {
-                console.log(res);
-                setPlatforms(res.data.results)
-            })
-            .catch(err => console.log(err));
-
-        //make request to external API for list of video game genres
-        axios.get(`https://api.rawg.io/api/genres?key=${apiKey}`)
-            .then(res => {
-                console.log(res);
-                setGenres(res.data.results)
-            })
-            .catch(err => console.log(err));
     }, [])
 
     const handleSubmit = (e) => {
