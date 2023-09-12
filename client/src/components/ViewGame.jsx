@@ -34,8 +34,8 @@ const ViewGame = (props) => {
 
     return (
         <>
-            <NavBar/>
             <div style={{ backgroundImage: `url(${game.image})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw", zIndex: "-1", position: "fixed", filter: "blur(5px) brightness(60%)"}}></div>
+            <NavBar/>
             <div className='container position-absolute top-50 start-50 translate-middle'>
                 <div className="card my-3" >
                     <div className="row g-0 h-100">

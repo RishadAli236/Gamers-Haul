@@ -63,8 +63,8 @@ const Recommendations = (props) => {
     }
     return (
         <>
-            <NavBar/>
             <div style={{ backgroundImage: `url(${recommendationsImage})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw", zIndex: "-1", position: "fixed"}}></div>
+            <NavBar/>
             <div className='container'>
                 <h3 className='text-warning pt-4'>Recommendations</h3>
                 <form className='w-750 h-50 pt-3 row' onSubmit={handleSubmit}>
