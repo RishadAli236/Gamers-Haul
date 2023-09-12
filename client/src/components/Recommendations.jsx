@@ -41,7 +41,7 @@ const Recommendations = (props) => {
             .catch(err => console.log(err));
 
         //make request to external API for list of games sorted by rating
-        axios.get(`https://api.rawg.io/api/games?key=${apiKey}&ordering=-rating&page_size=20`)
+        axios.get(`https://api.rawg.io/api/games?key=${apiKey}&ordering=-rating&page_size=10`)
             .then(res => {
                 console.log("recommendations", res);
                 setRecommendations(res.data.results)
@@ -54,7 +54,7 @@ const Recommendations = (props) => {
         e.preventDefault();
 
         //make request to external API for list of video games with the platform and genre as query parameters
-        axios.get(`https://api.rawg.io/api/games?key=${apiKey}&platforms=${preferences.platform}&genres=${preferences.genre}&ordering=-rating&page_size=20`)
+        axios.get(`https://api.rawg.io/api/games?key=${apiKey}&platforms=${preferences.platform}&genres=${preferences.genre}&ordering=-rating&page_size=10`)
             .then(res => {
                 console.log("recommendations", res);
                 setRecommendations(res.data.results)
