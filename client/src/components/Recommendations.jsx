@@ -41,7 +41,7 @@ const Recommendations = (props) => {
             .catch(err => console.log(err));
 
         //make request to external API for list of games sorted by rating
-        axios.get(`https://api.rawg.io/api/games?key=${apiKey}&ordering=-rating&page_size=10`)
+        axios.get(`https://api.rawg.io/api/games?key=${apiKey}&ordering=-rating&page_size=20`)
             .then(res => {
                 console.log("recommendations", res);
                 setRecommendations(res.data.results)
@@ -54,7 +54,7 @@ const Recommendations = (props) => {
         e.preventDefault();
 
         //make request to external API for list of video games with the platform and genre as query parameters
-        axios.get(`https://api.rawg.io/api/games?key=${apiKey}&platforms=${preferences.platform}&genres=${preferences.genre}&ordering=-rating&page_size=10`)
+        axios.get(`https://api.rawg.io/api/games?key=${apiKey}&platforms=${preferences.platform}&genres=${preferences.genre}&ordering=-rating&page_size=20`)
             .then(res => {
                 console.log("recommendations", res);
                 setRecommendations(res.data.results)
@@ -63,8 +63,8 @@ const Recommendations = (props) => {
     }
     return (
         <>
-            <NavBar/>
             <div style={{ backgroundImage: `url(${recommendationsImage})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw", zIndex: "-1", position: "fixed"}}></div>
+            <NavBar/>
             <div className='container'>
                 <h3 className='text-warning pt-4'>Recommendations</h3>
                 <form className='w-750 h-50 pt-3 row' onSubmit={handleSubmit}>
