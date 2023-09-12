@@ -39,23 +39,25 @@ const Favorites = (props) => {
         <>
             <div style={{ backgroundImage: `url(${libraryImage})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw", zIndex: "-1", position: "fixed"}}></div>
             <NavBar/>
-            <h3 className='text-white'>Your Collection, your journey</h3>
-            <div className='d-flex justify-content-evenly flex-wrap'>
-                {
-                    favorites.map((game, index) => (
-                        <div key={index} className="card mb-3" style={{ width: "15rem" }}>
-                            <img src={game.image} className="card-img-top" height={150} alt="..." />
-                            <div className="card-body bg-dark-subtle" >
-                                <p style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }} className="card-text">Title: {game.title}</p>
-                                <p className="card-text">Genre: {game.genre}</p>
+            <div className="container mx-auto pt-4">
+                <h3 className='text-white mb-5 p-3'>Your Collection, your journey</h3>
+                <div className='d-flex justify-content-evenly flex-wrap'>
+                    {
+                        favorites.map((game, index) => (
+                            <div key={index} className="card mb-3" style={{ width: "15rem" }}>
+                                <img src={game.image} className="card-img-top" height={150} alt="..." />
+                                <div className="card-body bg-dark-subtle" >
+                                    <p style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }} className="card-text">Title: {game.title}</p>
+                                    <p className="card-text">Genre: {game.genre}</p>
+                                </div>
+                                <div className='card-footer bg-dark-subtle'>
+                                    <Link className='card-link' to={`/games/edit/${game._id}`}>Edit</Link>
+                                    <button className='ms-5 btn btn-danger' onClick={() => deleteGame(game._id)}>Delete</button>
+                                </div>
                             </div>
-                            <div className='card-footer bg-dark-subtle'>
-                                <Link className='card-link' to={`/games/edit/${game._id}`}>Edit</Link>
-                                <button className='ms-5 btn btn-danger' onClick={() => deleteGame(game._id)}>Delete</button>
-                            </div>
-                        </div>
-                    ))
-                }
+                        ))
+                    }
+                </div>
             </div>
         </>
     )

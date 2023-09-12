@@ -55,8 +55,8 @@ const AddGame = (props) => {
 
     return (
         <>
-            <NavBar/>
             <div style={{ backgroundImage: `url(${addImage})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "100vh", width: "100vw", zIndex: "-1", position: "fixed"}}></div>
+            <NavBar/>
             <div className="container">
                 <h3 className='p-4 text-warning'>Let's add to the trove</h3>
                 <div>
